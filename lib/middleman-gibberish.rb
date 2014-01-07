@@ -116,22 +116,28 @@ module ::Middleman
   # TODO at some point this will need a full blown view stack but, for now -
   # this'll do...
   #
+  # FIXME - this can detect local assets or use remote ones...
+  #
     def script_for(glob, path, encrypted)
       libs = %w( jquery.js jquery.cookie.js gibberish.js )
 
-      libs.each do |lib|
-        script = File.join(source_dir, 'javascripts', lib)
+      asset_url = 'http://ahoward.github.io/middleman-gibberish/assets/'
 
-        unless test(?s, script)
-          abort "#{ script } is required for gibberish to function"
+      srcs =
+        libs.map do |lib|
+          script = File.join(source_dir, 'javascripts', lib)
+
+          if test(?s, script)
+            "/javascripts/#{ lib }"
+          end
+            asset_url + lib
         end
-      end
 
       template =
         <<-__
-          <% libs.each do |lib| %>
+          <% srcs.each do |src| %>
 
-          <script src='/javascripts/<%= lib %>?_=<%= rand %>'></script>
+          <script src='<%= src %>'></script>
 
           <% end %>
 
