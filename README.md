@@ -5,8 +5,9 @@ middlenam-gibberish
 
 SYNOPSIS
 --------
-password protected senstive web content with javascript only.  the
-implementation is serverless and works even on s3.
+password protected senstive web content with javascript only.  
+
+the implementation is serverless and works even on s3.
 
 DESCRIPTION
 -----------
@@ -25,7 +26,7 @@ javascript and is therefore quite safe.
 PSEUDO-CODE
 -----------
 
-```erb
+```ruby
 
   # in ruby - at build time
 
@@ -38,7 +39,7 @@ PSEUDO-CODE
   script = <<-__
 
 ```
-```erb
+```eruby
 
     <script>
 
