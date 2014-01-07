@@ -1,0 +1,41 @@
+          
+
+          <script src='assets/jquery.js'></script>
+
+          
+
+          <script src='assets/jquery.cookie.js'></script>
+
+          
+
+          <script src='assets/gibberish.js'></script>
+
+          
+
+          <script>
+            var encrypted = "U2FsdGVkX1+Zr47yv2brNmjMeblrXJNIB3xjSbFust1p5YN/irCQTd2B2gcC\nwlELAQ6bGwa1kYlTjZSLFwcLhA8HDu7UTPiZt3V5UFr+/ppDOseyFyQFaYN9\niAPcXMwk\n";
+            var cookie = "test/gibberish/**/**";
+
+            while(true){
+              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER THE PASSWORD'));
+
+              try{
+                var decrypted = GibberishAES.dec(encrypted, password);
+
+                document.write(decrypted);
+
+                try{
+                  jQuery.cookie(cookie, password, {expires: 1});
+                } catch(e) {
+                };
+
+                break;
+              } catch(e) {
+                if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
+                  42;
+                } else {
+                  break
+                }
+              };
+            };
+          </script>
