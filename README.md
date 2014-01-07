@@ -96,6 +96,10 @@ USAGE
   # encrypt at set of pages with a different password
 
     gibberish.encrypt 'kayne/**/**', 'i can hold my liquor'
+
+  # choose how many days the cookie is good for
+
+    gibberish.cookie_days = 7
   end
 
 ```

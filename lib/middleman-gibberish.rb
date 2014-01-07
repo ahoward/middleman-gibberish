@@ -56,6 +56,17 @@ module ::Middleman
       @password = password.to_s
     end
 
+    def cookie_days(*cookie_days)
+      unless cookie_days.empty?
+        @cookie_days = cookie_days.first.to_i
+      end
+      @cookie_days ||= 1
+    end
+
+    def cookie_days=(cookie_days)
+      @cookie_days = cookie_days.to_i
+    end
+
     def encrypt(glob, password = nil)
       @to_encrypt.push([glob, password])
     end
@@ -154,7 +165,7 @@ module ::Middleman
                 document.write(decrypted);
 
                 try{
-                  jQuery.cookie(cookie, password, {expires: 1});
+                  jQuery.cookie(cookie, password, {expires: #{ @cookie_days }});
                 } catch(e) {
                 };
 
