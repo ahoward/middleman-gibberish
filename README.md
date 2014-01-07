@@ -37,8 +37,9 @@ PSEUDO-CODE
   encrypted = encrypt(content, password)
 
   script = <<-____
-
     <script>
+```
+```javascript
 
       var encrypted = #{ encrypted.to_json };
       var cookie = #{ file.to_json };
@@ -54,6 +55,8 @@ PSEUDO-CODE
 
       document.write(decrypted);
 
+```
+```ruby
     </script>
 
   ____
