@@ -68,6 +68,10 @@ INSTALL
 ------
 `gem install middleman-gibberish`
 
+EXAMPLES
+--------
+http://ahoward.github.io/middleman-gibberish/
+
 
 USAGE
 -----
@@ -152,4 +156,3 @@ if you decide to use local copies, make sure the names match *exactly*, that is
 to say, you must have *jquery.js* and not *jquery-1.2.3.4.js* in
 source/javascripts.  if you aren't in the habbit of using symlinks it'd be a
 good time to figure that out.
-
