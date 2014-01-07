@@ -1,6 +1,6 @@
 NAME
 ----
-middlenam-gibberish
+middleman-gibberish
 
 
 SYNOPSIS
@@ -11,7 +11,7 @@ the implementation is serverless and works even on s3.
 
 DESCRIPTION
 -----------
-middlenam-gibberish encrypts senstive content at build time, before
+middleman-gibberish encrypts senstive content at build time, before
 deployment, and wraps it with a teeny script that will prompt the user to
 enter a password in order to decrypt and display it.  it relies on the
 excellent, openssl compatible, gibberish implementations for ruby and
@@ -66,7 +66,7 @@ PSEUDO-CODE
 
 INSTALL
 ------
-gem install middlenam-gibberish
+`gem install middleman-gibberish`
 
 
 USAGE
@@ -114,7 +114,7 @@ NOTES
 ```
   if you activated directory indexes.
 
-- gibberish encrypts *only* in the build directory via and
+- gibberish encrypts *only* in the build directory via an
   <code>after_build</code> callback.  this means you won't see encrypted
   content in development mode running <code>middleman server</code>: you will
   only see encrypted content in the build directory after running
@@ -130,26 +130,26 @@ NOTES
 
 DEPENDENCIES
 ------------
-middlenam-gibberish relies on the gibberish gem, and that is handled the
+middleman-gibberish relies on the gibberish gem, and that is handled the
 normal/rubygem way.
 
-middlenam-gibberish also relies on the following three javascript libs at
+middleman-gibberish also relies on the following three javascript libs at
 runtime for it to function
 
 - jquery.js
 - jquery.cookie.js
 - gibberish.js
 
-all three are included in this repo.  if you are application has checked them
-into sourc/javascripts *then they will be used*, otherwise the lib uses
-versions hosted on github's CDN here
+all three are included in this repo.  if your application has checked them
+into source/javascripts *then they will be used*, otherwise the lib uses
+versions hosted on github's CDN here:
 
 - http://ahoward.github.io/middleman-gibberish/assets/jquery.js
 - http://ahoward.github.io/middleman-gibberish/assets/jquery.cookie.js
 - http://ahoward.github.io/middleman-gibberish/assets/gibberish.js
 
-if you decide to use local copies make sure the names match *exactly*, that is
-to say you must have *jquery.js* and not *jquery-1.2.3.4.js* in
+if you decide to use local copies, make sure the names match *exactly*, that is
+to say, you must have *jquery.js* and not *jquery-1.2.3.4.js* in
 source/javascripts.  if you aren't in the habbit of using symlinks it'd be a
 good time to figure that out.
 
