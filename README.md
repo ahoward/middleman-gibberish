@@ -37,7 +37,6 @@ PSEUDO-CODE
   encrypted = encrypt(content, password)
 
   script = <<-____
-    <script>
 ```
 ```javascript
 
@@ -57,13 +56,11 @@ PSEUDO-CODE
 
 ```
 ```ruby
-    </script>
-
   ____
 
-  IO.binwrite('index.html', script)
+  IO.binwrite("index.html", "<script>#{ script }</script>")
 
-  # and then deploy 'encrypted.html'
+  # and then deploy 'index.html'
 
 ```
 
