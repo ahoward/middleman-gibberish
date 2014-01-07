@@ -6,11 +6,12 @@ Gem::Specification::new do |spec|
   spec.version = "0.4.2"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "middleman-gibberish"
-  spec.description = "description: middleman-gibberish kicks the ass"
+  spec.description = "password protect middleman pages - even on s3"
   spec.license = "same as ruby's" 
 
   spec.files =
-["Rakefile",
+["README.md",
+ "Rakefile",
  "assets",
  "assets/gibberish.js",
  "assets/jquery.cookie.js",

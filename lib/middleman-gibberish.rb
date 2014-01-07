@@ -74,7 +74,7 @@ module ::Middleman
           paths = Dir.glob(build_glob)
 
           if paths.empty?
-            warn "#{ build_glob } maps to 0 files asshole!"
+            log :warning, "#{ build_glob } maps to 0 files asshole!"
           end
 
           paths.each do |path|
@@ -83,7 +83,7 @@ module ::Middleman
             end
 
             unless test(?s, path)
-              warn "cannot encrypt empty file #{ path }"
+              log :warning, "cannot encrypt empty file #{ path }"
               next
             end
 
@@ -95,9 +95,9 @@ module ::Middleman
                 generate_page(glob, path, encrypted)
               end
 
-              info "encrypted #{ path }"
+              log :success, "encrypted #{ path }"
             rescue Object => e
-              warn "#{ e.message }(#{ e.class })\n#{ Array(e.backtrace).join(10.chr) }"
+              log :error, "#{ e.message }(#{ e.class })\n#{ Array(e.backtrace).join(10.chr) }"
               next
             end
           end
@@ -128,8 +128,9 @@ module ::Middleman
 
           if test(?s, script)
             "/javascripts/#{ lib }"
-          end
+          else
             asset_url + lib
+          end
         end
 
       template =
@@ -183,6 +184,8 @@ module ::Middleman
 
       color =
         case level.to_s
+          when /success/
+            :green
           when /warn/
             :yellow
           when /info/
@@ -194,18 +197,10 @@ module ::Middleman
         end
 
       if STDOUT.tty?
-        bleat(message, :color => level)
+        bleat(message, :color => color)
       else
         puts(message)
       end
-    end
-
-    def warn(*args, &block)
-      log(:warn, *args, &block)
-    end
-
-    def info(*args, &block)
-      log(:info, *args, &block)
     end
 
     def bleat(phrase, *args)
