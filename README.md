@@ -30,7 +30,7 @@ PSEUDO-CODE
 
   # in ruby - at build time
 
-  file = 'plaintext.html'
+  file = 'index.html'
 
   content = IO.binread(file)
 
@@ -41,7 +41,6 @@ PSEUDO-CODE
     <script>
 
       var encrypted = #{ encrypted.to_json };
-
       var cookie = #{ file.to_json };
 
       var password = (
@@ -59,7 +58,7 @@ PSEUDO-CODE
 
   ____
 
-  IO.binwrite('encrypted.html', script)
+  IO.binwrite('index.html', script)
 
   # and then deploy 'encrypted.html'
 
