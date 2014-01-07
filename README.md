@@ -42,14 +42,16 @@ PSEUDO-CODE
 
       var encrypted = #{ encrypted.to_json };
 
+      var cookie = #{ file.to_json };
+
       var password = (
-        get_cookie(#{ file.to_json }) || 
+        get_cookie(cookie) ||
         prompt('entre teh sekrit p@ssw0rd: ')
       );
 
       decrypted = decrypt(encrypted);
 
-      set_cookie(#{ file.to_json }, password);
+      set_cookie(cookie, password);
 
       document.write(decrypted);
 
