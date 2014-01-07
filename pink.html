@@ -17,7 +17,7 @@
             var cookie = "gibberish/pink";
 
             while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "pink" AS THE PASSWORD'));
+              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "gibberish" AS THE PASSWORD'));
 
               try{
                 var decrypted = GibberishAES.dec(encrypted, password);
