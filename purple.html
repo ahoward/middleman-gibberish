@@ -14,10 +14,10 @@
 
           <script>
             var encrypted = "U2FsdGVkX1+Zr47yv2brNmjMeblrXJNIB3xjSbFust1p5YN/irCQTd2B2gcC\nwlELAQ6bGwa1kYlTjZSLFwcLhA8HDu7UTPiZt3V5UFr+/ppDOseyFyQFaYN9\niAPcXMwk\n";
-            var cookie = "test/gibberish/**/**";
+            var cookie = "gibberish/purple";
 
             while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER THE PASSWORD'));
+              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "purple" AS THE PASSWORD'));
 
               try{
                 var decrypted = GibberishAES.dec(encrypted, password);
