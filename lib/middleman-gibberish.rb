@@ -113,10 +113,9 @@ module ::Middleman
       IO.binwrite(path, Array(content).join("\n"))
     end
 
-  # TODO at some point this will need a full blown view stack but, for now -
-  # this'll do...
+  # TODO at some point this will need a full blown view stack but, for now - this'll do...
   #
-  # FIXME - this can detect local assets or use remote ones...
+  # TODO extract this so as to be used from the CLI and tests.
   #
     def script_for(glob, path, encrypted)
       libs = %w( jquery.js jquery.cookie.js gibberish.js )
