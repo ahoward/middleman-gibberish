@@ -89,9 +89,13 @@ USAGE
 
     gibberish.encrypt 'bar.html', 'p@55w0rd'
 
-  # encrypt at set of pages
+  # encrypt at set of pages with the default password
 
     gibberish.encrypt 'seKrit/**/**'
+
+  # encrypt at set of pages with a different password
+
+    gibberish.encrypt 'kayne/**/**', 'i can hold my liquor'
   end
 
 ```
