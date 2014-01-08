@@ -157,7 +157,8 @@ module ::Middleman
             var cookie = #{ glob.to_json };
 
             while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER THE PASSWORD'));
+              var cookie_password = jQuery.cookie(cookie),
+                  password = (cookie_password || prompt('PLEASE ENTER THE PASSWORD'));
 
               try{
                 var decrypted = GibberishAES.dec(encrypted, password);
@@ -171,7 +172,9 @@ module ::Middleman
 
                 break;
               } catch(e) {
-                if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
+                if (cookie_password) {
+                  jquery.removeCookie(cookie); // and try again
+                } else if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
                   42;
                 } else {
                   break
