@@ -56,6 +56,17 @@ module ::Middleman
       @password = password.to_s
     end
 
+    def cookie_days(*cookie_days)
+      unless cookie_days.empty?
+        @cookie_days = cookie_days.first.to_i
+      end
+      @cookie_days ||= 1
+    end
+
+    def cookie_days=(cookie_days)
+      @cookie_days = cookie_days.to_i
+    end
+
     def encrypt(glob, password = nil)
       @to_encrypt.push([glob, password])
     end
@@ -146,7 +157,8 @@ module ::Middleman
             var cookie = #{ glob.to_json };
 
             while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER THE PASSWORD'));
+              var cookie_password = jQuery.cookie(cookie),
+                  password = (cookie_password || prompt('PLEASE ENTER THE PASSWORD'));
 
               try{
                 var decrypted = GibberishAES.dec(encrypted, password);
@@ -154,13 +166,15 @@ module ::Middleman
                 document.write(decrypted);
 
                 try{
-                  jQuery.cookie(cookie, password, {expires: 1});
+                  jQuery.cookie(cookie, password, {expires: #{ @cookie_days }});
                 } catch(e) {
                 };
 
                 break;
               } catch(e) {
-                if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
+                if (cookie_password) {
+                  jquery.removeCookie(cookie); // and try again
+                } else if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
                   42;
                 } else {
                   break
