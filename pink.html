@@ -1,5 +1,3 @@
-          
-
           <script src='assets/jquery.js'></script>
 
           
@@ -10,11 +8,11 @@
 
           <script src='assets/gibberish.js'></script>
 
-          
 
           <script>
             var encrypted = "U2FsdGVkX19HFYi3CACA5disSVJr5ZjijXHaBHHnJP/kBMk7apuafemaE56e\npFRPXEiLSjLU1Ok1tzXR33rgcDhdSZ/sZchPTh4IOMfbe/ZIfgMemoWv8cqo\nHm7x3Ajy\n";
             var cookie = "gibberish/pink";
+            var options = {path: "/", expires: 1};
 
             while(true){
               var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "gibberish" AS THE PASSWORD'));
@@ -25,12 +23,17 @@
                 document.write(decrypted);
 
                 try{
-                  jQuery.cookie(cookie, password, {expires: 1});
+                  jQuery.cookie(cookie, password, options);
                 } catch(e) {
                 };
 
                 break;
               } catch(e) {
+                try{
+                  jQuery.removeCookie(cookie, options);
+                } catch(e) {
+                };
+
                 if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
                   42;
                 } else {
