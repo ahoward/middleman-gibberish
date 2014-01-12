@@ -144,9 +144,10 @@ module ::Middleman
           <script>
             var encrypted = #{ encrypted.to_json };
             var cookie = #{ glob.to_json };
+            var options = {path: "/", expires: 1};
 
             while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER THE PASSWORD'));
+              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "gibberish" AS THE PASSWORD'));
 
               try{
                 var decrypted = GibberishAES.dec(encrypted, password);
@@ -154,12 +155,17 @@ module ::Middleman
                 document.write(decrypted);
 
                 try{
-                  jQuery.cookie(cookie, password, {expires: 1});
+                  jQuery.cookie(cookie, password, options);
                 } catch(e) {
                 };
 
                 break;
               } catch(e) {
+                try{
+                  jQuery.removeCookie(cookie, options);
+                } catch(e) {
+                };
+
                 if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
                   42;
                 } else {
