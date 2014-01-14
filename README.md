@@ -70,7 +70,7 @@ INSTALL
 
 EXAMPLES
 --------
-http://ahoward.github.io/middleman-gibberish/
+http://ahoward.github.io/middleman-gibberish/ (password=gibberish)
 
 
 USAGE
@@ -145,8 +145,8 @@ runtime for it to function
 - gibberish.js
 
 all three are included in this repo.  if your application has checked them
-into source/javascripts *then they will be used*, otherwise the lib uses
-versions hosted on github's CDN here:
+into source/gibberish/javascripts *then they will be used*, otherwise the lib
+uses versions hosted on github's CDN here:
 
 - http://ahoward.github.io/middleman-gibberish/assets/jquery.js
 - http://ahoward.github.io/middleman-gibberish/assets/jquery.cookie.js

@@ -3,7 +3,7 @@ require 'gibberish'
 
 module ::Middleman
   class Gibberish < Middleman::Extension
-    Version = '0.4.2'
+    Version = '0.5.0'
 
     def Gibberish.version
       Version
@@ -124,10 +124,10 @@ module ::Middleman
 
       srcs =
         libs.map do |lib|
-          script = File.join(source_dir, 'javascripts', lib)
+          script = File.join(source_dir, 'gibberish', 'javascripts', lib)
 
           if test(?s, script)
-            "/javascripts/#{ lib }"
+            "/gibberish/javascripts/#{ lib }"
           else
             asset_url + lib
           end
@@ -135,10 +135,55 @@ module ::Middleman
 
       template =
         <<-__
+          <html>
+            <head>
+              <style>
+                .gibberish {
+                  margin: auto;
+                  color: #999;
+                  text-align: center;
+                }
+
+                .gibberish-instructions,
+                .gibberish-password,
+                .gibberish-message
+                {
+                  margin-bottom: 1em;
+                }
+
+                .gibberish-password {
+                  border: 1px solid #ccc;
+                }
+
+                .gibberish-message {
+                  margin: auto;
+                  color: #633;
+                }
+              </style>
+            </head>
+
+            <body style='width:100%;'>
+              <br>
+              <br>
+              <br>
+              <div class='gibberish'>
+
+                <div class='gibberish-instructions'>
+                  enter password and press &lt;enter&gt;
+                </div>
+
+                <input id='gibberish-password' name='gibberish-password' type='password' class='gibberish-password'/>
+
+                <div class='gibberish-message'>
+                </div>
+
+              </div>
+            </body>
+          </html>
+
+
           <% srcs.each do |src| %>
-
           <script src='<%= src %>'></script>
-
           <% end %>
 
           <script>
@@ -146,33 +191,45 @@ module ::Middleman
             var cookie = #{ glob.to_json };
             var options = {path: "/", expires: 1};
 
-            while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "gibberish" AS THE PASSWORD'));
 
-              try{
-                var decrypted = GibberishAES.dec(encrypted, password);
+            jQuery(function(){
+              var password = jQuery('.gibberish-password');
+              var message  = jQuery('.gibberish-message');
 
-                document.write(decrypted);
+              password.focus();
+              message.html('');
 
-                try{
-                  jQuery.cookie(cookie, password, options);
-                } catch(e) {
-                };
+              password.keyup(function(e){ 
+                var code = e.which;
 
-                break;
-              } catch(e) {
-                try{
-                  jQuery.removeCookie(cookie, options);
-                } catch(e) {
-                };
+                e.preventDefault();
 
-                if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
-                  42;
+                var _password = (jQuery.cookie(cookie) || password.val());
+
+                if(code==13 && !_password==""){
+                  try{
+                    var decrypted = GibberishAES.dec(encrypted, _password);
+
+                    document.write(decrypted);
+
+                    try{
+                      jQuery.cookie(cookie, _password, options);
+                    } catch(e) {
+                    };
+                  } catch(e) {
+                    try{
+                      jQuery.removeCookie(cookie, options);
+                    } catch(e) {
+                    };
+                    message.html("sorry, wrong password - try again.");
+                  };
                 } else {
-                  break
-                }
-              };
-            };
+                  message.html("");
+                };
+
+                return(false);
+              });
+            });
           </script>
         __
 
