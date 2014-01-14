@@ -3,7 +3,7 @@
 
 Gem::Specification::new do |spec|
   spec.name = "middleman-gibberish"
-  spec.version = "0.6.0"
+  spec.version = "0.6.1"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "middleman-gibberish"
   spec.description = "password protect middleman pages - even on s3"

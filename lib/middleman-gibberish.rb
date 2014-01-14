@@ -3,7 +3,7 @@ require 'gibberish'
 
 module ::Middleman
   class Gibberish < Middleman::Extension
-    Version = '0.6.0'
+    Version = '0.6.1'
 
     def Gibberish.version
       Version
@@ -233,6 +233,8 @@ module ::Middleman
                   if(!decrypt(_password)){
                     message.html("sorry, wrong password - try again.");
                   }
+                } else {
+                  message.html("");
                 }
 
                 return(false);
