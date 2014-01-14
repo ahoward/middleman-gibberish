@@ -3,7 +3,7 @@ require 'gibberish'
 
 module ::Middleman
   class Gibberish < Middleman::Extension
-    Version = '0.5.0'
+    Version = '0.6.0'
 
     def Gibberish.version
       Version
@@ -191,7 +191,6 @@ module ::Middleman
             var cookie = #{ glob.to_json };
             var options = {path: "/", expires: 1};
 
-
             jQuery(function(){
               var password = jQuery('.gibberish-password');
               var message  = jQuery('.gibberish-message');
@@ -199,14 +198,8 @@ module ::Middleman
               password.focus();
               message.html('');
 
-              password.keyup(function(e){ 
-                var code = e.which;
-
-                e.preventDefault();
-
-                var _password = (jQuery.cookie(cookie) || password.val());
-
-                if(code==13 && !_password==""){
+              var decrypt = function(_password){
+                if(_password){
                   try{
                     var decrypted = GibberishAES.dec(encrypted, _password);
 
@@ -216,19 +209,38 @@ module ::Middleman
                       jQuery.cookie(cookie, _password, options);
                     } catch(e) {
                     };
+
+                    return true;
                   } catch(e) {
                     try{
                       jQuery.removeCookie(cookie, options);
                     } catch(e) {
                     };
-                    message.html("sorry, wrong password - try again.");
+
+                    return false;
                   };
-                } else {
-                  message.html("");
-                };
+                }
+
+                return false;
+              };
+
+              password.keyup(function(e){ 
+                var code = e.which;
+                e.preventDefault();
+
+                if(code==13){
+                  var _password = password.val();
+                  if(!decrypt(_password)){
+                    message.html("sorry, wrong password - try again.");
+                  }
+                }
 
                 return(false);
               });
+
+          
+              var _password = jQuery.cookie(cookie);
+              decrypt(_password);
             });
           </script>
         __
