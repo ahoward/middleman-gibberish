@@ -1,47 +1,96 @@
-          
+<html>
+  <head>
+    <style>
+      .gibberish {
+        margin: auto;
+        color: #999;
+        text-align: center;
+      }
 
-          <script src='assets/jquery.js'></script>
+      .gibberish-instructions,
+      .gibberish-password,
+      .gibberish-message
+      {
+        margin-bottom: 1em;
+      }
 
-          
+      .gibberish-password {
+        border: 1px solid #ccc;
+      }
 
-          <script src='assets/jquery.cookie.js'></script>
+      .gibberish-message {
+        margin: auto;
+        color: #633;
+      }
+    </style>
+  </head>
 
-          
+  <body style='width:100%;'>
+    <br>
+    <br>
+    <br>
+    <div class='gibberish'>
 
-          <script src='assets/gibberish.js'></script>
+      <div class='gibberish-instructions'>
+        enter password and press &lt;enter&gt;
+      </div>
 
-          
+      <input id='gibberish-password' name='gibberish-password' type='password' class='gibberish-password'/>
 
-          <script>
-            var encrypted = "U2FsdGVkX1+Zr47yv2brNmjMeblrXJNIB3xjSbFust1p5YN/irCQTd2B2gcC\nwlELAQ6bGwa1kYlTjZSLFwcLhA8HDu7UTPiZt3V5UFr+/ppDOseyFyQFaYN9\niAPcXMwk\n";
-            var cookie = "gibberish/purple";
-            var options = {path: "/", expires: 1};
+      <div class='gibberish-message'>
+      </div>
 
-            while(true){
-              var password = (jQuery.cookie(cookie) || prompt('PLEASE ENTER "gibberish" AS THE PASSWORD'));
+    </div>
+  </body>
+</html>
 
-              try{
-                var decrypted = GibberishAES.dec(encrypted, password);
 
-                document.write(decrypted);
+<script src='assets/jquery.js'></script>
+<script src='assets/jquery.cookie.js'></script>
+<script src='assets/gibberish.js'></script>
 
-                try{
-                  jQuery.cookie(cookie, password, options);
-                } catch(e) {
-                };
+<script>
+  var encrypted = "U2FsdGVkX1+Zr47yv2brNmjMeblrXJNIB3xjSbFust1p5YN/irCQTd2B2gcC\nwlELAQ6bGwa1kYlTjZSLFwcLhA8HDu7UTPiZt3V5UFr+/ppDOseyFyQFaYN9\niAPcXMwk\n";
+  var cookie = "gibberish/purple";
+  var options = {path: "/", expires: 1};
 
-                break;
-              } catch(e) {
-                try{
-                  jQuery.removeCookie(cookie, options);
-                } catch(e) {
-                };
 
-                if(confirm('BLARGH - WRONG PASSWORD! TRY AGAIN?')){
-                  42;
-                } else {
-                  break
-                }
-              };
-            };
-          </script>
+  jQuery(function(){
+    var password = jQuery('.gibberish-password');
+    var message  = jQuery('.gibberish-message');
+
+    password.focus();
+    message.html('');
+
+    password.keyup(function(e){ 
+      var code = e.which;
+
+      e.preventDefault();
+
+      var _password = (jQuery.cookie(cookie) || password.val());
+
+      if(code==13 && !_password==""){
+        try{
+          var decrypted = GibberishAES.dec(encrypted, _password);
+
+          document.write(decrypted);
+
+          try{
+            jQuery.cookie(cookie, _password, options);
+          } catch(e) {
+          };
+        } catch(e) {
+          try{
+            jQuery.removeCookie(cookie, options);
+          } catch(e) {
+          };
+          message.html("sorry, wrong password - try again.");
+        };
+      } else {
+        message.html("");
+      };
+
+      return(false);
+    });
+  });
+</script>
