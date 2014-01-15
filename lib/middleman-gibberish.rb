@@ -119,17 +119,21 @@ module ::Middleman
   #
     def script_for(glob, path, encrypted)
       libs = %w( jquery.js jquery.cookie.js gibberish.js )
+      cdn = 'http://ahoward.github.io/middleman-gibberish/assets/'
 
-      asset_url = 'http://ahoward.github.io/middleman-gibberish/assets/'
-
-      srcs =
+      scripts =
         libs.map do |lib|
-          script = File.join(source_dir, 'gibberish', 'javascripts', lib)
+          script = File.join(source_dir, 'javascripts', lib)
 
           if test(?s, script)
-            "/gibberish/javascripts/#{ lib }"
+            javascript_include_tag(lib)
           else
-            asset_url + lib
+            src = cdn + lib
+
+            log(:warn, "using cdn hosted #{ lib.inspect } @ #{ src.inspect }")
+            log(:warn, "  add source/javascripts/#{ lib } to shut this up - a symlink link will do"
+
+            "<script src='%s' type='text/javascript'></script>" % src
           end
         end
 
@@ -182,9 +186,7 @@ module ::Middleman
           </html>
 
 
-          <% srcs.each do |src| %>
-          <script src='<%= src %>'></script>
-          <% end %>
+          <%= #{ scripts.join("\n") } %.
 
           <script>
             var encrypted = #{ encrypted.to_json };
