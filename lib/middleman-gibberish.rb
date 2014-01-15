@@ -3,7 +3,7 @@ require 'gibberish'
 
 module ::Middleman
   class Gibberish < Middleman::Extension
-    Version = '0.6.1'
+    Version = '0.7.0'
 
     def Gibberish.version
       Version
@@ -43,6 +43,11 @@ module ::Middleman
 
     def source_dir
       File.join(@app.root, 'source')
+    end
+
+# FIXME
+    def javascript_include_tag(*args, &block) 
+      @app.send(:javascript_include_tag, *args, &block) 
     end
 
     def password(*password)
@@ -125,13 +130,14 @@ module ::Middleman
         libs.map do |lib|
           script = File.join(source_dir, 'javascripts', lib)
 
-          if test(?s, script)
+          #if test(?s, script)
+          if false
             javascript_include_tag(lib)
           else
             src = cdn + lib
 
             log(:warn, "using cdn hosted #{ lib.inspect } @ #{ src.inspect }")
-            log(:warn, "  add source/javascripts/#{ lib } to shut this up - a symlink link will do"
+            log(:warn, "- add source/javascripts/#{ lib } to shut this up - a symlink link will do")
 
             "<script src='%s' type='text/javascript'></script>" % src
           end
@@ -186,7 +192,7 @@ module ::Middleman
           </html>
 
 
-          <%= #{ scripts.join("\n") } %.
+          #{ scripts.join("\n") }
 
           <script>
             var encrypted = #{ encrypted.to_json };

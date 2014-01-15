@@ -1,0 +1,8 @@
+todo:
+
+  - use tilt/middleman to render the wrapper
+    - cache.clear;render_individual_file('_.html.erb', {}, :template_body => "42")
+
+  - javascript_include_tag barfs in views currently: scope?
+
+done:
