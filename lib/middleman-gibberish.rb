@@ -79,7 +79,7 @@ module ::Middleman
           paths = Dir.glob(build_glob)
 
           if paths.empty?
-            log :warning, "#{ build_glob } maps to 0 files asshole!"
+            log :warning, "#{ build_glob } maps to 0 files!"
           end
 
           paths.each do |path|
