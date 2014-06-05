@@ -38,7 +38,7 @@ module ::Middleman
     end
 
     def build_dir
-      File.join(@app.root, 'build')
+      File.join(@app.root, "#{config[:build_dir]}" || 'build')
     end
 
     def source_dir
