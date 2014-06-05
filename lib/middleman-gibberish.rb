@@ -147,6 +147,7 @@ module ::Middleman
         <<-__
           <html>
             <head>
+              <meta name="viewport" content="width=device-width, user-scalable=no">
               <style>
                 .gibberish {
                   margin: auto;
