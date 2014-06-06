@@ -46,8 +46,8 @@ module ::Middleman
     end
 
 # FIXME
-    def javascript_include_tag(*args, &block) 
-      @app.send(:javascript_include_tag, *args, &block) 
+    def javascript_include_tag(*args, &block)
+      @app.send(:javascript_include_tag, *args, &block)
     end
 
     def password(*password)
@@ -147,8 +147,10 @@ module ::Middleman
         <<-__
           <html>
             <head>
+              <meta name="viewport" content="width=device-width, user-scalable=no">
               <style>
                 .gibberish {
+                  max-width: 100%;
                   margin: auto;
                   color: #999;
                   text-align: center;
@@ -172,14 +174,14 @@ module ::Middleman
               </style>
             </head>
 
-            <body style='width:100%;'>
+            <body>
               <br>
               <br>
               <br>
               <div class='gibberish'>
 
                 <div class='gibberish-instructions'>
-                  enter password and press &lt;enter&gt;
+                  Enter your password and press &lt;enter&gt;
                 </div>
 
                 <input id='gibberish-password' name='gibberish-password' type='password' class='gibberish-password'/>
@@ -232,7 +234,7 @@ module ::Middleman
                 return false;
               };
 
-              password.keyup(function(e){ 
+              password.keyup(function(e){
                 var code = e.which;
                 e.preventDefault();
 
@@ -248,7 +250,7 @@ module ::Middleman
                 return(false);
               });
 
-          
+
               var _password = jQuery.cookie(cookie);
               decrypt(_password);
             });
