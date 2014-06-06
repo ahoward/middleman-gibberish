@@ -2,11 +2,11 @@
 
 Gem::Specification::new do |spec|
   spec.name = "middleman-gibberish-redux"
-  spec.version = "0.7.1"
+  spec.version = "0.7.0"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "middleman-gibberish-redux"
   spec.description = "password protect middleman pages - even on s3"
-  spec.license = "same as ruby's" 
+  spec.license = "same as ruby's"
 
   spec.files =
 ["README.md",
