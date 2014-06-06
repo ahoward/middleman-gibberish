@@ -1,11 +1,10 @@
-## middleman-gibberish.gemspec
-#
+# middleman-gibberish-redux.gemspec
 
 Gem::Specification::new do |spec|
-  spec.name = "middleman-gibberish"
-  spec.version = "0.7.0"
+  spec.name = "middleman-gibberish-redux"
+  spec.version = "0.7.1"
   spec.platform = Gem::Platform::RUBY
-  spec.summary = "middleman-gibberish"
+  spec.summary = "middleman-gibberish-redux"
   spec.description = "password protect middleman pages - even on s3"
   spec.license = "same as ruby's" 
 
@@ -37,5 +36,5 @@ Gem::Specification::new do |spec|
   spec.rubyforge_project = "codeforpeople"
   spec.author = "Ara T. Howard"
   spec.email = "ara.t.howard@gmail.com"
-  spec.homepage = "https://github.com/ahoward/middleman-gibberish"
+  spec.homepage = "https://github.com/brandonpittman/middleman-gibberish-redux"
 end
