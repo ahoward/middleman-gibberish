@@ -1,7 +1,24 @@
 NAME
 ----
-middleman-gibberish
+middleman-gibberish-redux
 
+Why 'redux'?
+------------
+[middleman-gibberish](https://github.com/ahoward/middleman-gibberish) is a neat little add-on for adding a password to one or more pages in a Middleman site, but I wanted to change a few things.
+
+### redux's password page is more responsive
+
+Currently, middleman-gibberish doesn't correctly set the viewport for
+mobile devices and it causes the decrypted page's size to be thrown off.
+
+### redux has politer errors
+
+Currently, middleman-gibberish calls you an asshole in its error messages if it fails to find files to encrypt. I didn't think that was very nice, and I cleaned it up a little.
+
+### Future improvements
+
+In the future, I'd like to touch up the template a bit more and improve the
+CSS.
 
 SYNOPSIS
 --------
