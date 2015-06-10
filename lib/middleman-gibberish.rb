@@ -70,7 +70,7 @@ module ::Middleman
         password = String(password || self.password)
 
         unless password.empty?
-          cipher = ::Gibberish::AES.new(password)
+          cipher = ::Gibberish::AES::CBC.new(password)
 
           glob = glob.to_s
 
