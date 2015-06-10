@@ -96,7 +96,7 @@ module ::Middleman
               content = IO.binread(path).to_s
 
               unless content.empty?
-                encrypted = cipher.enc(content)
+                encrypted = cipher.encrypt(content)
                 generate_page(glob, path, encrypted)
               end
 
