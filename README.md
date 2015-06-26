@@ -104,7 +104,6 @@ USAGE
   # use custom html file for the password input view
    
     gibberish.custom_html 'custom.html'
-
   end
 
 ```
