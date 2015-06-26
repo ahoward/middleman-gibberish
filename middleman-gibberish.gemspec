@@ -29,7 +29,7 @@ Gem::Specification::new do |spec|
   
     spec.add_dependency(*["middleman", ">= 3.0"])
   
-    spec.add_dependency(*["gibberish", ">= 1.3"])
+    spec.add_dependency(*["gibberish", "2.0"])
   
 
   spec.extensions.push(*[])

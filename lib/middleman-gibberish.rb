@@ -12,7 +12,7 @@ module ::Middleman
     def Gibberish.dependencies
       [
         ['middleman', '>= 3.0'],
-        ['gibberish', '>= 1.3']
+        ['gibberish', '2.0']
       ]
     end
 
