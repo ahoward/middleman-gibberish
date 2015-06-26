@@ -143,7 +143,7 @@ module ::Middleman
           end
         end
 
-      template =
+      html =
         <<-__
           <html>
             <head>
@@ -190,7 +190,10 @@ module ::Middleman
               </div>
             </body>
           </html>
+	__
 
+	javascript = 
+	  <<-__
 
           #{ scripts.join("\n") }
 
@@ -254,10 +257,17 @@ module ::Middleman
             });
           </script>
         __
+      
+      custom_html = File.join(@app.root, 'source/gibberish.html')
+      if File.file?(custom_html)
+        template = File.read(custom_html)
+      else
+        template = html
+      end
 
       require 'erb'
 
-      ::ERB.new(template).result(binding)
+      ::ERB.new(template + javascript).result(binding)
     end
 
     def log(level, *args, &block)
