@@ -29,6 +29,8 @@ module ::Middleman
       @to_encrypt = []
 
       gibberish = self
+      
+      @custom_html = nil
 
       @block.call(gibberish) if @block
 
@@ -63,6 +65,10 @@ module ::Middleman
 
     def encrypt(glob, password = nil)
       @to_encrypt.push([glob, password])
+    end
+
+    def custom_html(path)
+      @custom_html = File.join(@app.root, "source/#{path}")
     end
 
     def encrypt_all!
@@ -257,13 +263,8 @@ module ::Middleman
             });
           </script>
         __
-      
-      custom_html = File.join(@app.root, 'source/gibberish.html')
-      if File.file?(custom_html)
-        template = File.read(custom_html)
-      else
-        template = html
-      end
+
+      template = @custom_html ? File.read(@custom_html) : html
 
       require 'erb'
 

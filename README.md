@@ -100,6 +100,10 @@ USAGE
   # encrypt at set of pages with a different password
 
     gibberish.encrypt 'kayne/**/**', 'i can hold my liquor'
+
+  # use custom html file for the password input view
+   
+    gibberish.custom_html 'custom.html'
   end
 
 ```
@@ -117,6 +121,8 @@ NOTES
     gibberish.encrypt '/about-us'
 ```
   if you activated directory indexes.
+
+- if you activate a custom html file, the path given as the argument must be relative to your source directory. any css styling for this page must be included inline or in the head tag of your custom html file.
 
 - gibberish encrypts *only* in the build directory via an
   <code>after_build</code> callback.  this means you won't see encrypted
