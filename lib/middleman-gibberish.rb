@@ -46,8 +46,8 @@ module ::Middleman
     end
 
 # FIXME
-    def javascript_include_tag(*args, &block) 
-      @app.send(:javascript_include_tag, *args, &block) 
+    def javascript_include_tag(*args, &block)
+      @app.send(:javascript_include_tag, *args, &block)
     end
 
     def password(*password)
@@ -70,7 +70,7 @@ module ::Middleman
         password = String(password || self.password)
 
         unless password.empty?
-          cipher = ::Gibberish::AES.new(password)
+          cipher = ::Gibberish::AES::CBC.new(password)
 
           glob = glob.to_s
 
@@ -96,7 +96,7 @@ module ::Middleman
               content = IO.binread(path).to_s
 
               unless content.empty?
-                encrypted = cipher.enc(content)
+                encrypted = cipher.encrypt(content)
                 generate_page(glob, path, encrypted)
               end
 
@@ -210,7 +210,6 @@ module ::Middleman
                 if(_password){
                   try{
                     var decrypted = GibberishAES.dec(encrypted, _password);
-
                     document.write(decrypted);
 
                     try{
@@ -232,7 +231,7 @@ module ::Middleman
                 return false;
               };
 
-              password.keyup(function(e){ 
+              password.keyup(function(e){
                 var code = e.which;
                 e.preventDefault();
 
@@ -248,7 +247,7 @@ module ::Middleman
                 return(false);
               });
 
-          
+
               var _password = jQuery.cookie(cookie);
               decrypt(_password);
             });
