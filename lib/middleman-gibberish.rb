@@ -12,7 +12,7 @@ module ::Middleman
     def Gibberish.dependencies
       [
         ['middleman', '>= 3.0'],
-        ['gibberish', '>= 1.3']
+        ['gibberish', '2.0']
       ]
     end
 
@@ -29,6 +29,8 @@ module ::Middleman
       @to_encrypt = []
 
       gibberish = self
+      
+      @custom_html = nil
 
       @block.call(gibberish) if @block
 
@@ -63,6 +65,10 @@ module ::Middleman
 
     def encrypt(glob, password = nil)
       @to_encrypt.push([glob, password])
+    end
+
+    def custom_html(path)
+      @custom_html = File.join(@app.root, "source/#{path}")
     end
 
     def encrypt_all!
@@ -143,7 +149,7 @@ module ::Middleman
           end
         end
 
-      template =
+      html =
         <<-__
           <html>
             <head>
@@ -190,7 +196,10 @@ module ::Middleman
               </div>
             </body>
           </html>
+	__
 
+	javascript = 
+	  <<-__
 
           #{ scripts.join("\n") }
 
@@ -254,9 +263,11 @@ module ::Middleman
           </script>
         __
 
+      template = @custom_html ? File.read(@custom_html) : html
+
       require 'erb'
 
-      ::ERB.new(template).result(binding)
+      ::ERB.new(template + javascript).result(binding)
     end
 
     def log(level, *args, &block)
